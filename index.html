@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Dina Udomsak | Educational Leadership & L&D</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --teal:      #1a5f7a;
+      --teal-dark: #134b61;
+      --gold:      #c9a84c;
+      --gold-light:#e8c97a;
+      --burgundy:  #7a2d3b;
+      --cream:     #faf6f0;
+      --cream-dark:#f0e9df;
+      --text:      #2c2416;
+      --text-light:#5c5040;
+      --white:     #ffffff;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--cream);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(26, 95, 122, 0.96);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      padding: 0 2rem;
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold-light);
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold-light);
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 50%, #1e7a6e 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(122,45,59,0.15) 0%, transparent 50%);
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 800px;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      color: var(--gold-light);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(201,168,76,0.4);
+      padding-bottom: 0.5rem;
+    }
+
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-name span {
+      color: var(--gold-light);
+    }
+
+    .hero-tagline {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: rgba(255,255,255,0.8);
+      font-weight: 300;
+      max-width: 580px;
+      margin: 0 auto 2.5rem;
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      border-radius: 2px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.25s;
+      cursor: pointer;
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: var(--text);
+    }
+
+    .btn-gold:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(201,168,76,0.35);
+    }
+
+    .btn-outline {
+      border: 1.5px solid rgba(255,255,255,0.5);
+      color: var(--white);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--white);
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-2px);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.4);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: pulse 2s infinite;
+    }
+
+    .scroll-hint::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.3);
+      margin: 0.5rem auto 0;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.9; }
+    }
+
+    /* ── SECTIONS SHARED ── */
+    section {
+      padding: 6rem 2rem;
+    }
+
+    .section-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 700;
+      color: var(--teal-dark);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .divider {
+      width: 50px;
+      height: 3px;
+      background: var(--gold);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--white);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-photo-wrap {
+      margin-bottom: 2rem;
+    }
+
+    .about-photo-wrap img {
+      width: 100%;
+      max-width: 320px;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      border: 4px solid var(--cream-dark);
+      box-shadow: 8px 8px 0px var(--gold);
+    }
+
+    .about-text p {
+      color: var(--text-light);
+      font-size: 1.05rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .about-text p strong {
+      color: var(--teal);
+      font-weight: 600;
+    }
+
+    .about-credentials {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .credential-card {
+      background: var(--cream);
+      border-left: 3px solid var(--gold);
+      padding: 1rem 1.25rem;
+    }
+
+    .credential-card .label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.25rem;
+    }
+
+    .credential-card .value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--teal-dark);
+      font-weight: 600;
+    }
+
+    .credential-card .sub {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      margin-top: 0.2rem;
+    }
+
+    /* ── HIGHLIGHTS ── */
+    #highlights {
+      background: var(--cream-dark);
+    }
+
+    .highlights-intro {
+      max-width: 600px;
+      color: var(--text-light);
+      font-size: 1.05rem;
+      margin-bottom: 3rem;
+    }
+
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .highlight-card {
+      background: var(--white);
+      padding: 2rem;
+      border-top: 3px solid var(--teal);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .highlight-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(26,95,122,0.1);
+    }
+
+    .highlight-card:nth-child(2) {
+      border-color: var(--gold);
+    }
+
+    .highlight-card:nth-child(3) {
+      border-color: var(--burgundy);
+    }
+
+    .highlight-card:nth-child(4) {
+      border-color: var(--teal);
+    }
+
+    .highlight-card:nth-child(5) {
+      border-color: var(--gold);
+    }
+
+    .highlight-card:nth-child(6) {
+      border-color: var(--burgundy);
+    }
+
+    .highlight-icon {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .highlight-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--teal-dark);
+      margin-bottom: 0.6rem;
+      font-weight: 600;
+    }
+
+    .highlight-card p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    /* ── EXPERIENCE STRIP ── */
+    #experience {
+      background: var(--teal-dark);
+      padding: 5rem 2rem;
+    }
+
+    #experience .section-title {
+      color: var(--white);
+    }
+
+    #experience .section-label {
+      color: var(--gold-light);
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+      border-left: 2px solid rgba(201,168,76,0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .timeline-item {
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.6rem;
+      top: 0.4rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 2px solid var(--teal-dark);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.3);
+    }
+
+    .timeline-period {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-role {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--white);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .timeline-org {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+      font-style: italic;
+    }
+
+    /* ── PHILOSOPHY ── */
+    #philosophy {
+      background: var(--white);
+      text-align: center;
+    }
+
+    .philosophy-quote {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .philosophy-quote blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      font-style: italic;
+      color: var(--teal-dark);
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding: 0 2rem;
+    }
+
+    .philosophy-quote blockquote::before,
+    .philosophy-quote blockquote::after {
+      content: '"';
+      font-size: 4rem;
+      color: var(--gold);
+      opacity: 0.4;
+      font-family: 'Playfair Display', serif;
+      line-height: 0;
+      vertical-align: -0.6em;
+      display: inline-block;
+    }
+
+    .philosophy-quote blockquote::before {
+      margin-right: 0.2rem;
+    }
+
+    .philosophy-quote blockquote::after {
+      content: '"';
+      margin-left: 0.2rem;
+    }
+
+    .philosophy-note {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--cream-dark);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .contact-intro {
+      font-size: 1.05rem;
+      color: var(--text-light);
+      margin-bottom: 2rem;
+    }
+
+    .contact-items {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      color: var(--text-light);
+    }
+
+    .contact-item .icon {
+      width: 36px;
+      height: 36px;
+      background: var(--teal);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-item a {
+      color: var(--teal);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-item a:hover {
+      color: var(--gold);
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      padding: 0.75rem 1rem;
+      border: 1.5px solid rgba(26,95,122,0.2);
+      background: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+      border-radius: 2px;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--teal);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--teal-dark);
+      text-align: center;
+      padding: 2rem;
+    }
+
+    footer p {
+      color: rgba(255,255,255,0.4);
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+    }
+
+    footer span {
+      color: var(--gold-light);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      section { padding: 4rem 1.25rem; }
+
+      .hero-cta { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-logo" href="#hero">Dr. Dina Udomsak</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#highlights">Expertise</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Connect</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-content">
+      <span class="hero-eyebrow">Educational Leadership &amp; Organizational Development</span>
+      <h1 class="hero-name">Dr. <span>Dina</span> Udomsak</h1>
+      <p class="hero-tagline">Bridging the worlds of higher education and corporate learning to develop leaders who transform organizations.</p>
+      <div class="hero-cta">
+        <a href="#highlights" class="btn btn-gold">Explore My Work</a>
+        <a href="#contact" class="btn btn-outline">Let's Connect</a>
+      </div>
+    </div>
+    <div class="scroll-hint">Scroll</div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="section-label">About</p>
+          <h2 class="section-title">A Leader Shaped by Two Worlds</h2>
+          <div class="divider"></div>
+          <p>
+            With over <strong>15 years of experience</strong> at the intersection of higher education and corporate learning, Dr. Dina Udomsak brings a rare dual fluency to every engagement — the rigor of academia and the results-orientation of the Fortune 500.
+          </p>
+          <p>
+            Her work spans <strong>higher education administration</strong>, where she has shaped institutional strategy and student success, and <strong>Learning &amp; Development leadership</strong> within global supply chain organizations, where she has built learning ecosystems that move the needle on performance.
+          </p>
+          <p>
+            Dr. Udomsak believes that <strong>great learning is both art and science</strong> — grounded in research, alive in practice, and always in service of human potential.
+          </p>
+        </div>
+        <div>
+          <div class="about-photo-wrap">
+            <img src="photo.jpg" alt="Dr. Dina Udomsak" />
+          </div>
+          <div class="about-credentials">
+          <div class="credential-card">
+            <div class="label">Degree</div>
+            <div class="value">Doctor of Education (EdD)</div>
+            <div class="sub">Educational Leadership</div>
+          </div>
+          <div class="credential-card">
+            <div class="label">Experience</div>
+            <div class="value">15+ Years</div>
+            <div class="sub">Higher Education &amp; Fortune 500 L&amp;D</div>
+          </div>
+          <div class="credential-card">
+            <div class="label">Specialization</div>
+            <div class="value">Supply Chain L&amp;D</div>
+            <div class="sub">Organizational Learning &amp; Leadership Development</div>
+          </div>
+          <div class="credential-card">
+            <div class="label">Focus Areas</div>
+            <div class="value">Leadership · Strategy · Learning</div>
+            <div class="sub">Adult Learning Theory · Curriculum Design · Talent Development</div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIGHLIGHTS -->
+  <section id="highlights">
+    <div class="section-inner">
+      <p class="section-label">Areas of Expertise</p>
+      <h2 class="section-title">What I Bring to the Table</h2>
+      <div class="divider"></div>
+      <p class="highlights-intro">
+        Decades of practice across sectors have sharpened a distinctive set of capabilities — each rooted in evidence, each tested in the real world.
+      </p>
+      <div class="highlights-grid">
+        <div class="highlight-card">
+          <div class="highlight-icon">🎓</div>
+          <h3>Higher Education Leadership</h3>
+          <p>Strategic administration across academic institutions — from enrollment and student affairs to institutional effectiveness and accreditation.</p>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">⚙️</div>
+          <h3>Supply Chain L&amp;D</h3>
+          <p>Designing and scaling learning programs inside complex global supply chain environments for Fortune 500 organizations.</p>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">📐</div>
+          <h3>Curriculum &amp; Instructional Design</h3>
+          <p>Building learning experiences grounded in adult learning theory — from onboarding programs to advanced leadership development curricula.</p>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">👥</div>
+          <h3>Leadership Development</h3>
+          <p>Identifying, developing, and advancing high-potential leaders through coaching frameworks, cohort programs, and succession planning.</p>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">📊</div>
+          <h3>Learning Strategy &amp; Analytics</h3>
+          <p>Connecting learning investments to business outcomes — leveraging data to measure impact, demonstrate ROI, and guide program evolution.</p>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">🤝</div>
+          <h3>Consulting &amp; Advisory</h3>
+          <p>Partnering with institutions and organizations to assess learning culture, align talent strategy, and architect scalable solutions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-inner">
+      <p class="section-label">Career Journey</p>
+      <h2 class="section-title">Experience That Spans Sectors</h2>
+      <div class="divider" style="background: var(--gold);"></div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-period">Present</div>
+          <div class="timeline-role">Senior Learning &amp; Development Leader</div>
+          <div class="timeline-org">Fortune 500 — Global Supply Chain &amp; Operations</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-period">Higher Education Administration</div>
+          <div class="timeline-role">Director / Dean-Level Academic Leadership</div>
+          <div class="timeline-org">University &amp; College Settings — Student Success, Strategy &amp; Operations</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-period">Organizational Development</div>
+          <div class="timeline-role">Learning Architect &amp; Program Designer</div>
+          <div class="timeline-org">Cross-sector — Leadership Pipelines, Onboarding, Talent Frameworks</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-period">Academic Foundation</div>
+          <div class="timeline-role">Doctoral Studies — Doctor of Education (EdD)</div>
+          <div class="timeline-org">Educational Leadership — Research, Policy &amp; Practice</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section id="philosophy">
+    <div class="section-inner">
+      <div class="philosophy-quote">
+        <p class="section-label" style="text-align:center; margin-bottom: 1.5rem;">Philosophy</p>
+        <blockquote>
+          Learning is not a department. It is a culture — and culture is built one intentional experience at a time.
+        </blockquote>
+        <p class="philosophy-note">— Dr. Dina Udomsak, EdD</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner">
+      <div class="contact-grid">
+        <div>
+          <p class="section-label">Let's Connect</p>
+          <h2 class="section-title">Ready to Work Together?</h2>
+          <div class="divider"></div>
+          <p class="contact-intro">
+            Whether you're looking for a thought partner, a consultant, or a leader — I'd love to have a conversation about how we might collaborate.
+          </p>
+          <div class="contact-items">
+            <div class="contact-item">
+              <div class="icon">✉️</div>
+              <span><a href="mailto:dina@dinaudomsak.com">dina@dinaudomsak.com</a></span>
+            </div>
+            <div class="contact-item">
+              <div class="icon">💼</div>
+              <span><a href="https://linkedin.com" target="_blank">LinkedIn — Dr. Dina Udomsak</a></span>
+            </div>
+            <div class="contact-item">
+              <div class="icon">📍</div>
+              <span>United States</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <form class="contact-form" action="https://formspree.io/f/mjgelyyg" method="POST">
+            <input type="hidden" name="_replyto" value="" />
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" placeholder="Jane Smith" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="jane@example.com" required />
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" placeholder="Consulting Inquiry / Speaking / Other" />
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell me a bit about what you're working on..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-gold" style="align-self: flex-start; border: none; font-family: 'Inter', sans-serif; cursor: pointer;">
+              Send Message
+            </button>
+            <p id="form-success" style="display:none; color: var(--teal); font-size: 0.9rem; font-weight: 500;">
+              ✓ Thank you! I'll be in touch soon.
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 <span>Dr. Dina Udomsak, EdD</span> · All Rights Reserved</p>
+  </footer>
+
+  <script>
+    document.getElementById('email').addEventListener('input', function() {
+      document.querySelector('input[name="_replyto"]').value = this.value;
+    });
+  </script>
+
+</body>
+</html>
