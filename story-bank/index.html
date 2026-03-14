@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎸 Story Bank | FLAIR Method</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal: #1a5f7a;
+      --teal-light: #e8f4f8;
+      --gold: #c9a84c;
+      --gold-light: #fdf6e3;
+      --burgundy: #7a2d3b;
+      --burgundy-light: #f8e8eb;
+      --orange: #e07c24;
+      --orange-light: #fef3e2;
+      --green: #2d7a4f;
+      --green-light: #e8f5ed;
+      --cream: #faf6f0;
+
+      --funny: #d97706;
+      --funny-light: #fffbeb;
+      --inspiring: #2563eb;
+      --inspiring-light: #eff6ff;
+      --cautionary: #dc2626;
+      --cautionary-light: #fef2f2;
+
+      --text-primary: #1a1a2e;
+      --text-secondary: #6b7280;
+      --text-light: #9ca3af;
+      --border: #e5e7eb;
+      --bg-main: #f5f3ef;
+      --bg-card: #ffffff;
+      --shadow: 0 2px 8px rgba(0,0,0,0.07);
+      --shadow-hover: 0 6px 20px rgba(0,0,0,0.12);
+
+      --header-height: 64px;
+      --sidebar-width: 260px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-main);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+
+    /* ── Header ─────────────────────────────── */
+    .header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--header-height);
+      background: var(--teal);
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 14px;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .search-wrap { flex: 1; max-width: 460px; }
+
+    .search-input {
+      width: 100%;
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: 2px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.15);
+      color: white;
+      font-size: 0.875rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .search-input::placeholder { color: rgba(255,255,255,0.55); }
+    .search-input:focus { border-color: rgba(255,255,255,0.75); background: rgba(255,255,255,0.22); }
+
+    .header-actions { display: flex; gap: 8px; margin-left: auto; flex-shrink: 0; }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .btn-outline { background: transparent; border: 2px solid rgba(255,255,255,0.45); color: white; }
+    .btn-outline:hover { background: rgba(255,255,255,0.12); border-color: white; }
+    .btn-gold { background: var(--gold); color: white; }
+    .btn-gold:hover { background: #b8922a; }
+    .btn-white { background: white; color: var(--teal); font-weight: 600; }
+    .btn-white:hover { background: #f0f8fb; }
+    .btn-primary { background: var(--teal); color: white; }
+    .btn-primary:hover { background: #155167; }
+    .btn-danger { background: var(--cautionary); color: white; }
+    .btn-danger:hover { background: #b91c1c; }
+    .btn-neutral { background: var(--cream); color: var(--text-primary); }
+    .btn-neutral:hover { background: #ece7e0; }
+
+    /* ── Layout ──────────────────────────────── */
+    .app-layout {
+      display: flex;
+      padding-top: var(--header-height);
+      min-height: 100vh;
+    }
+
+    /* ── Sidebar ─────────────────────────────── */
+    .sidebar {
+      width: var(--sidebar-width);
+      min-width: var(--sidebar-width);
+      background: white;
+      border-right: 1px solid var(--border);
+      padding: 20px 14px;
+      position: sticky;
+      top: var(--header-height);
+      height: calc(100vh - var(--header-height));
+      overflow-y: auto;
+    }
+
+    .sidebar-count {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      font-weight: 500;
+    }
+
+    .filter-section { margin-bottom: 20px; }
+
+    .filter-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-light);
+      margin-bottom: 8px;
+    }
+
+    .filter-pills { display: flex; flex-wrap: wrap; gap: 5px; }
+
+    .pill {
+      padding: 3px 11px;
+      border-radius: 999px;
+      font-size: 0.775rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+      background: #f3f4f6;
+      color: var(--text-secondary);
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .pill:hover { border-color: var(--teal); color: var(--teal); }
+    .pill.active { background: var(--teal); color: white; border-color: var(--teal); }
+
+    .pill-focus.active  { background: var(--teal);     border-color: var(--teal); }
+    .pill-link.active   { background: var(--gold);     border-color: var(--gold); color: white; }
+    .pill-activate.active { background: var(--orange); border-color: var(--orange); }
+    .pill-ignite.active { background: var(--burgundy); border-color: var(--burgundy); }
+    .pill-reinforce.active { background: var(--green); border-color: var(--green); }
+
+    .pill-funny.active     { background: var(--funny);      border-color: var(--funny); }
+    .pill-inspiring.active { background: var(--inspiring);  border-color: var(--inspiring); }
+    .pill-cautionary.active { background: var(--cautionary); border-color: var(--cautionary); }
+
+    .clear-tags-link {
+      font-size: 0.75rem;
+      color: var(--teal);
+      cursor: pointer;
+      text-decoration: underline;
+      margin-top: 4px;
+      display: inline-block;
+    }
+    .clear-tags-link:hover { color: #0e3d4f; }
+
+    /* ── Main Content ─────────────────────────── */
+    .content {
+      flex: 1;
+      padding: 24px;
+      overflow-x: hidden;
+    }
+
+    .content-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .count-label { font-size: 0.875rem; color: var(--text-secondary); }
+
+    .view-toggle { display: flex; gap: 4px; }
+    .view-btn {
+      padding: 6px 10px;
+      border: 1.5px solid var(--border);
+      background: white;
+      cursor: pointer;
+      border-radius: 7px;
+      font-size: 1rem;
+      line-height: 1;
+      transition: all 0.15s;
+      color: var(--text-secondary);
+    }
+    .view-btn:hover { border-color: var(--teal); color: var(--teal); }
+    .view-btn.active { background: var(--teal); border-color: var(--teal); color: white; }
+
+    /* ── Story Grid ───────────────────────────── */
+    .story-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .story-grid.list-view { grid-template-columns: 1fr; }
+
+    /* ── Story Card ───────────────────────────── */
+    .story-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      border-left: 5px solid #ccc;
+      cursor: pointer;
+      transition: transform 0.18s, box-shadow 0.18s;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .story-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+
+    .story-card.flair-focus   { border-left-color: var(--teal); }
+    .story-card.flair-link    { border-left-color: var(--gold); }
+    .story-card.flair-activate { border-left-color: var(--orange); }
+    .story-card.flair-ignite  { border-left-color: var(--burgundy); }
+    .story-card.flair-reinforce { border-left-color: var(--green); }
+
+    .card-body { padding: 16px; display: flex; flex-direction: column; gap: 9px; flex: 1; }
+
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.35;
+      color: var(--text-primary);
+    }
+
+    .emotion-badge {
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .emotion-funny     { background: var(--funny-light);      color: var(--funny); }
+    .emotion-inspiring { background: var(--inspiring-light);  color: var(--inspiring); }
+    .emotion-cautionary { background: var(--cautionary-light); color: var(--cautionary); }
+
+    .card-preview {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-lesson {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      font-style: italic;
+      border-left: 3px solid var(--gold);
+      padding-left: 8px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      line-height: 1.5;
+    }
+
+    .card-footer { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; padding-top: 2px; }
+
+    .flair-badge {
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-focus    { background: var(--teal-light);     color: var(--teal); }
+    .badge-link     { background: var(--gold-light);     color: #8a6a10; }
+    .badge-activate { background: var(--orange-light);   color: var(--orange); }
+    .badge-ignite   { background: var(--burgundy-light); color: var(--burgundy); }
+    .badge-reinforce { background: var(--green-light);   color: var(--green); }
+
+    .tag-chip {
+      padding: 2px 8px;
+      background: #f3f4f6;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+    }
+
+    /* ── Empty State ──────────────────────────── */
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 80px 24px;
+      color: var(--text-secondary);
+    }
+    .empty-icon { font-size: 3rem; margin-bottom: 16px; }
+    .empty-state h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .empty-state p { font-size: 0.9rem; line-height: 1.6; }
+
+    /* ── Modals ───────────────────────────────── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.48);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: white;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 560px;
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.22);
+    }
+    .modal-lg { max-width: 720px; }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .modal-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--text-primary);
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+      color: var(--text-light);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .modal-close:hover { background: #f3f4f6; color: var(--text-primary); }
+
+    .modal-body { padding: 22px 24px; overflow-y: auto; flex: 1; }
+
+    .modal-footer {
+      padding: 14px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    /* ── Forms ────────────────────────────────── */
+    .form-group { margin-bottom: 14px; }
+    .form-group label {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 9px 13px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-family: 'Inter', sans-serif;
+      color: var(--text-primary);
+      background: white;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(26,95,122,0.1);
+    }
+    .form-group textarea { resize: vertical; line-height: 1.6; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .req { color: #dc2626; }
+    .hint { color: var(--text-light); font-weight: 400; }
+
+    /* ── View Modal Body ──────────────────────── */
+    .view-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+
+    .view-story-text {
+      font-size: 0.9375rem;
+      line-height: 1.85;
+      color: var(--text-primary);
+      margin-bottom: 22px;
+      white-space: pre-wrap;
+    }
+
+    .view-lesson-box {
+      background: var(--gold-light);
+      border-left: 4px solid var(--gold);
+      padding: 16px 18px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+    .lesson-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: #8a6a10;
+      margin-bottom: 7px;
+    }
+    .view-lesson-box p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      font-style: italic;
+      color: var(--text-primary);
+    }
+
+    .view-meta { font-size: 0.78rem; color: var(--text-light); margin-top: 8px; }
+
+    /* ── Quick Prompt ─────────────────────────── */
+    .prompt-intro { font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 14px; line-height: 1.5; }
+
+    .prompt-list { display: flex; flex-direction: column; gap: 10px; }
+
+    .prompt-card {
+      padding: 14px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .prompt-card:hover { border-color: var(--teal); background: var(--teal-light); }
+
+    .prompt-meta { display: flex; gap: 6px; margin-bottom: 7px; }
+
+    .prompt-text { font-size: 0.875rem; color: var(--text-primary); line-height: 1.45; }
+
+    /* ── Scrollbar ────────────────────────────── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ HEADER ══════════════════════════════════════ -->
+<header class="header">
+  <div class="logo">🎸 Story Bank | FLAIR Method</div>
+  <div class="search-wrap">
+    <input class="search-input" id="searchInput" type="search"
+           placeholder="Search stories, lessons, tags…"
+           oninput="handleSearch(this.value)">
+  </div>
+  <div class="header-actions">
+    <button class="btn btn-outline" onclick="openQuickPrompt()">⚡ Quick Prompt</button>
+    <button class="btn btn-white" onclick="openAddModal()">+ Add Story</button>
+  </div>
+</header>
+
+<!-- ══════════ APP LAYOUT ══════════════════════════════════ -->
+<div class="app-layout">
+
+  <!-- ── Sidebar ──────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-count" id="sidebarCount">Loading…</div>
+
+    <div class="filter-section">
+      <div class="filter-label">FLAIR Stage</div>
+      <div class="filter-pills" id="flairPills"></div>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-label">Emotion</div>
+      <div class="filter-pills" id="emotionPills"></div>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-label">Topic</div>
+      <div class="filter-pills" id="topicPills"></div>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-label">Tags</div>
+      <div class="filter-pills" id="tagPills"></div>
+      <span class="clear-tags-link" id="clearTagsLink" style="display:none"
+            onclick="clearTags()">× clear tag filters</span>
+    </div>
+  </aside>
+
+  <!-- ── Main Content ──────────────────────────────────────── -->
+  <main class="content">
+    <div class="content-header">
+      <div class="count-label" id="countLabel"></div>
+      <div class="view-toggle">
+        <button class="view-btn active" id="gridBtn" onclick="setView('grid')" title="Grid view">⊞</button>
+        <button class="view-btn" id="listBtn" onclick="setView('list')" title="List view">☰</button>
+      </div>
+    </div>
+    <div class="story-grid" id="storyGrid"></div>
+  </main>
+</div>
+
+<!-- ══════════ ADD / EDIT MODAL ════════════════════════════ -->
+<div class="modal-overlay" id="addEditModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="addEditTitle">Add Story</h2>
+      <button class="modal-close" onclick="closeModal('addEditModal')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="fTitle">Title <span class="req">*</span></label>
+        <input id="fTitle" type="text" placeholder="Give your story a memorable title">
+      </div>
+      <div class="form-group">
+        <label for="fText">Story <span class="req">*</span></label>
+        <textarea id="fText" rows="7" placeholder="Tell the story…"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="fLesson">Lesson Learned</label>
+        <textarea id="fLesson" rows="3" placeholder="What's the key takeaway?"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fEmotion">Emotion</label>
+          <select id="fEmotion">
+            <option value="">— Select —</option>
+            <option value="funny">😄 Funny</option>
+            <option value="inspiring">✨ Inspiring</option>
+            <option value="cautionary">⚠️ Cautionary</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="fFlair">FLAIR Stage</label>
+          <select id="fFlair">
+            <option value="">— Select —</option>
+            <option value="focus">Focus</option>
+            <option value="link">Link</option>
+            <option value="activate">Activate</option>
+            <option value="ignite">Ignite</option>
+            <option value="reinforce">Reinforce</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="fTopic">Topic</label>
+          <select id="fTopic">
+            <option value="">— Select —</option>
+            <option value="Leadership">Leadership</option>
+            <option value="Teamwork">Teamwork</option>
+            <option value="Communication">Communication</option>
+            <option value="Change">Change</option>
+            <option value="Resilience">Resilience</option>
+            <option value="Facilitation">Facilitation</option>
+            <option value="Learning">Learning</option>
+            <option value="Creativity">Creativity</option>
+            <option value="Conflict">Conflict</option>
+            <option value="Feedback">Feedback</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fTags">Tags <span class="hint">(comma-separated)</span></label>
+        <input id="fTags" type="text" placeholder="e.g. failure, growth, humor">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-neutral" onclick="closeModal('addEditModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveStory()">Save Story</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ VIEW STORY MODAL ════════════════════════════ -->
+<div class="modal-overlay" id="viewModal">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <h2 id="viewTitle"></h2>
+      <button class="modal-close" onclick="closeModal('viewModal')">×</button>
+    </div>
+    <div class="modal-body" id="viewBody"></div>
+    <div class="modal-footer">
+      <button class="btn btn-neutral" onclick="closeModal('viewModal')">Close</button>
+      <button class="btn btn-primary" onclick="editCurrentStory()">Edit</button>
+      <button class="btn btn-danger" onclick="deleteCurrentStory()">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ QUICK PROMPT MODAL ══════════════════════════ -->
+<div class="modal-overlay" id="quickModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>⚡ Quick Story Prompts</h2>
+      <button class="modal-close" onclick="closeModal('quickModal')">×</button>
+    </div>
+    <div class="modal-body">
+      <p class="prompt-intro">Click any prompt to open the Add Story form pre-filled with that FLAIR stage and topic.</p>
+      <div class="prompt-list" id="promptList"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-neutral" onclick="closeModal('quickModal')">Close</button>
+      <button class="btn btn-primary" onclick="generatePrompts()">🔀 Regenerate</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ JAVASCRIPT ══════════════════════════════════ -->
+<script>
+'use strict';
+
+// ─── Constants ────────────────────────────────────────────────────────────────
+const STORAGE_KEY = 'flair-story-bank-v1';
+
+const FLAIR_STAGES = ['focus', 'link', 'activate', 'ignite', 'reinforce'];
+const EMOTIONS     = ['funny', 'inspiring', 'cautionary'];
+
+const PROMPT_TEMPLATES = [
+  { stage: 'focus',     topic: 'Leadership',    text: 'Tell a story about a moment when a leader did something unexpected that immediately changed the energy in the room.' },
+  { stage: 'focus',     topic: 'Facilitation',  text: 'Tell a story about the strangest or funniest thing that happened in your first five minutes of facilitating a session.' },
+  { stage: 'focus',     topic: 'Change',         text: 'Tell a story about a moment when you walked into a room and realised something had fundamentally shifted — before a word was spoken.' },
+  { stage: 'focus',     topic: 'Conflict',       text: 'Tell a story about walking into a room where the tension was so thick you could feel it immediately — and what you did.' },
+  { stage: 'link',      topic: 'Learning',       text: 'Tell a story that connects a concept you teach to something completely unexpected from everyday life.' },
+  { stage: 'link',      topic: 'Communication',  text: 'Tell a story about a time when two people were using the same word but meaning completely different things — and what happened.' },
+  { stage: 'link',      topic: 'Leadership',     text: 'Tell a story about a leader who reminded you of a character from a film, book, or TV show — and what that comparison revealed.' },
+  { stage: 'link',      topic: 'Creativity',     text: 'Tell a story about an analogy or metaphor that made a difficult concept suddenly click for everyone in the room.' },
+  { stage: 'activate',  topic: 'Teamwork',       text: 'Tell a story about a breakthrough moment when a team suddenly clicked — and what you think made that happen.' },
+  { stage: 'activate',  topic: 'Creativity',     text: 'Tell a story about the strangest approach to a problem that turned out to work brilliantly.' },
+  { stage: 'activate',  topic: 'Learning',       text: 'Tell a story about a participant who did something completely unexpected that taught you something new about how people learn.' },
+  { stage: 'ignite',    topic: 'Resilience',     text: 'Tell a story about the lowest moment in a project or programme — and what the team or individual did next.' },
+  { stage: 'ignite',    topic: 'Change',         text: 'Tell a story about someone who changed their mind completely during a workshop or programme — and what finally shifted them.' },
+  { stage: 'ignite',    topic: 'Leadership',     text: 'Tell a story about a leader who deliberately stepped back so someone else could step up — and what happened as a result.' },
+  { stage: 'reinforce', topic: 'Resilience',     text: 'Tell a story about someone who came back from a serious setback — and what they did differently the second time.' },
+  { stage: 'reinforce', topic: 'Feedback',       text: 'Tell a story about a piece of feedback that stung at the time but turned out to be exactly right.' },
+  { stage: 'reinforce', topic: 'Teamwork',       text: 'Tell a story about a habit or ritual a team adopted that quietly changed everything over time.' },
+  { stage: 'reinforce', topic: 'Learning',       text: 'Tell a story about a moment — weeks or months after a training — when you discovered it had actually worked.' },
+];
+
+// ─── Sample Data ──────────────────────────────────────────────────────────────
+const SAMPLE_STORIES = [
+  {
+    id: 's1',
+    title: 'The Flying Flip Chart',
+    text: 'At my very first leadership workshop, I stayed up until midnight setting up the room perfectly. I positioned the flip chart stand at exactly the right angle, wrote bold headers in three colours, and felt genuinely ready.\n\nWhat I hadn\'t accounted for was the hotel\'s freshly waxed floors.\n\nThe next morning, midway through my energising opening, I stepped back to gesture at my masterpiece — and the entire flip chart stand slowly, gracefully, almost majestically fell forward onto the front row of participants. Papers flew. A coffee cup tipped. Twelve senior managers looked at me in stunned silence.\n\nI took a breath, helped pick up the papers, and said: "Well. Now that we\'ve broken the ice…"',
+    lessonLearned: 'Test your setup in the actual space, not just in your imagination. And always have a recovery line ready — because something will always go wrong, and how you recover is what they actually remember.',
+    tags: ['preparation', 'recovery', 'humor'],
+    emotion: 'funny',
+    topic: 'Facilitation',
+    flairStage: 'focus',
+    createdAt: new Date(Date.now() - 5 * 86400000).toISOString()
+  },
+  {
+    id: 's2',
+    title: 'The Quietest Voice in the Room',
+    text: 'Three months into a leadership programme with a global bank, one participant had said almost nothing. She sat in the back, took careful notes, but never raised her hand. I privately assumed she wasn\'t engaged.\n\nOn the final day, I asked everyone to share one thing they would do differently. When it came to her turn, she paused, then said quietly: "I\'m going to stop waiting to be asked."\n\nSix months later, the programme coordinator called to tell me she had been promoted — and had started leading her own team sessions using the FLAIR framework. She\'d been listening to every word. She just needed time to process before she acted.',
+    lessonLearned: 'Silence is not absence. Some people do their deepest learning when they seem least engaged. Never mistake quietness for emptiness.',
+    tags: ['observation', 'listening', 'inclusion'],
+    emotion: 'inspiring',
+    topic: 'Leadership',
+    flairStage: 'ignite',
+    createdAt: new Date(Date.now() - 4 * 86400000).toISOString()
+  },
+  {
+    id: 's3',
+    title: 'The Assumption That Almost Sank the Workshop',
+    text: 'I was hired to run a communication workshop for a tech company. The brief said: "team is having trouble communicating." I assumed they meant interpersonal communication — listening, speaking up, navigating difficult conversations.\n\nI arrived with a full day planned around interpersonal dynamics. Three hours in, during a break, the VP pulled me aside and said: "This is interesting, but our actual problem is that the engineers don\'t document anything. When they leave, the knowledge leaves with them."\n\nI had designed entirely the wrong workshop. We salvaged the afternoon by pivoting to documentation culture, but the morning had been spent solving the wrong problem entirely.',
+    lessonLearned: 'Never assume you understand the problem from a one-line brief. Always conduct a proper needs analysis — even a single 30-minute call can save you from designing for the wrong outcome.',
+    tags: ['needs analysis', 'assumptions', 'design'],
+    emotion: 'cautionary',
+    topic: 'Communication',
+    flairStage: 'link',
+    createdAt: new Date(Date.now() - 3 * 86400000).toISOString()
+  },
+  {
+    id: 's4',
+    title: 'The Team That Fixed Itself in 20 Minutes',
+    text: 'A cross-functional team had been in conflict for eight months. Two department heads refused to make eye contact. HR had been involved twice. My brief was to "do some team building."\n\nInstead of icebreakers, I gave them a single task: map every handoff point between your two departments on a whiteboard, and write the name of the person responsible on each side.\n\nWithin 20 minutes, they discovered three gaps where nobody had been assigned responsibility at all. The conflict wasn\'t personal — it was structural. They had been blaming each other for a system problem.\n\nThey shook hands before I said another word.',
+    lessonLearned: 'Before you treat the relationship, diagnose the system. Many interpersonal conflicts are actually process gaps wearing a human costume.',
+    tags: ['conflict', 'systems thinking', 'root cause'],
+    emotion: 'inspiring',
+    topic: 'Teamwork',
+    flairStage: 'activate',
+    createdAt: new Date(Date.now() - 2 * 86400000).toISOString()
+  },
+  {
+    id: 's5',
+    title: 'The Parking Lot That Taught Me Everything',
+    text: 'I was convinced I had designed the perfect closing activity. Participants would write their one commitment on a sticky note, walk it to a "commitment wall," and state it aloud to the group. Powerful. Memorable. Moving.\n\nWhat I forgot: we were in a room with 40 people, 30 minutes left, and one commitment wall.\n\nI watched in slow horror as 40 people queued politely, each one reading their note — some at considerable length — while the energy slowly drained and people began checking their phones. I abandoned the activity at person 18, thanked everyone warmly for their commitments, and closed with a quick pair-share instead.\n\nThree participants later told me it was the best closing they\'d ever experienced.',
+    lessonLearned: 'Scale your activities for the room. What works beautifully with 12 becomes a fire hazard with 40. Always calculate: time per person × number of people = actual time required.',
+    tags: ['timing', 'design', 'adaptability'],
+    emotion: 'funny',
+    topic: 'Facilitation',
+    flairStage: 'reinforce',
+    createdAt: new Date(Date.now() - 1 * 86400000).toISOString()
+  }
+];
+
+// ─── State ────────────────────────────────────────────────────────────────────
+let stories      = [];
+let filters      = { flairStage: null, emotion: null, topic: null, tags: [] };
+let searchQuery  = '';
+let currentView  = 'grid';
+let editingId    = null;
+let viewingId    = null;
+let currentPrompts = [];
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+function initApp() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  stories = raw ? JSON.parse(raw) : SAMPLE_STORIES.map(s => ({ ...s }));
+  if (!raw) persist();
+  render();
+}
+
+function persist() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(stories));
+}
+
+// ─── Filtering ────────────────────────────────────────────────────────────────
+function getFiltered() {
+  return stories.filter(s => {
+    if (filters.flairStage && s.flairStage !== filters.flairStage) return false;
+    if (filters.emotion    && s.emotion    !== filters.emotion)    return false;
+    if (filters.topic      && s.topic      !== filters.topic)      return false;
+    if (filters.tags.length > 0 && !filters.tags.every(t => (s.tags || []).includes(t))) return false;
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      const hay = [s.title, s.text, s.lessonLearned, ...(s.tags || []), s.topic, s.flairStage, s.emotion]
+        .filter(Boolean).join(' ').toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+function toggleFilter(type, value) {
+  // null value = "All" — always clears
+  if (value === null || filters[type] === value) {
+    filters[type] = null;
+  } else {
+    filters[type] = value;
+  }
+  render();
+}
+
+function toggleTag(tag) {
+  const idx = filters.tags.indexOf(tag);
+  if (idx >= 0) filters.tags.splice(idx, 1);
+  else filters.tags.push(tag);
+  render();
+}
+
+function clearTags() {
+  filters.tags = [];
+  render();
+}
+
+function handleSearch(val) {
+  searchQuery = val.trim();
+  renderGrid();
+  updateCounts();
+}
+
+// ─── Render ───────────────────────────────────────────────────────────────────
+function render() {
+  renderSidebar();
+  renderGrid();
+}
+
+function updateCounts() {
+  const n = getFiltered().length;
+  document.getElementById('countLabel').textContent =
+    n === 1 ? '1 story' : `${n} stories`;
+  document.getElementById('sidebarCount').textContent =
+    `${n} of ${stories.length} ${stories.length === 1 ? 'story' : 'stories'}`;
+}
+
+function renderSidebar() {
+  updateCounts();
+
+  // FLAIR stage pills
+  const flairHtml = [
+    pill('All', !filters.flairStage, `toggleFilter('flairStage', null)`, ''),
+    ...FLAIR_STAGES.map(s => {
+      const n = stories.filter(st => st.flairStage === s).length;
+      return pill(`${cap(s)} (${n})`, filters.flairStage === s,
+        `toggleFilter('flairStage','${s}')`, `pill-${s}`);
+    })
+  ].join('');
+  document.getElementById('flairPills').innerHTML = flairHtml;
+
+  // Emotion pills
+  const emotionHtml = [
+    pill('All', !filters.emotion, `toggleFilter('emotion', null)`, ''),
+    ...EMOTIONS.map(e => {
+      const n = stories.filter(st => st.emotion === e).length;
+      return pill(`${cap(e)} (${n})`, filters.emotion === e,
+        `toggleFilter('emotion','${e}')`, `pill-${e}`);
+    })
+  ].join('');
+  document.getElementById('emotionPills').innerHTML = emotionHtml;
+
+  // Topic pills (dynamic)
+  const topicCounts = {};
+  stories.forEach(s => { if (s.topic) topicCounts[s.topic] = (topicCounts[s.topic] || 0) + 1; });
+  const topics = Object.keys(topicCounts).sort();
+  const topicHtml = topics.length === 0
+    ? '<span style="color:var(--text-light);font-size:0.78rem">None yet</span>'
+    : [
+        pill('All', !filters.topic, `toggleFilter('topic', null)`, ''),
+        ...topics.map(t =>
+          pill(`${t} (${topicCounts[t]})`, filters.topic === t,
+            `toggleFilter('topic','${escAttr(t)}')`, ''))
+      ].join('');
+  document.getElementById('topicPills').innerHTML = topicHtml;
+
+  // Tag pills (dynamic)
+  const tagCounts = {};
+  stories.forEach(s => (s.tags || []).forEach(t => { tagCounts[t] = (tagCounts[t] || 0) + 1; }));
+  const tags = Object.keys(tagCounts).sort();
+  const tagHtml = tags.length === 0
+    ? '<span style="color:var(--text-light);font-size:0.78rem">None yet</span>'
+    : tags.map(t =>
+        pill(`#${t} (${tagCounts[t]})`, filters.tags.includes(t),
+          `toggleTag('${escAttr(t)}')`, '')).join('');
+  document.getElementById('tagPills').innerHTML = tagHtml;
+  document.getElementById('clearTagsLink').style.display =
+    filters.tags.length > 0 ? 'inline-block' : 'none';
+}
+
+function pill(label, isActive, onclick, extraClass) {
+  return `<span class="pill ${extraClass} ${isActive ? 'active' : ''}" onclick="${onclick}">${escHtml(label)}</span>`;
+}
+
+function renderGrid() {
+  const grid = document.getElementById('storyGrid');
+  const filtered = getFiltered();
+
+  document.getElementById('countLabel').textContent =
+    filtered.length === 1 ? '1 story' : `${filtered.length} stories`;
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `<div class="empty-state">
+      <div class="empty-icon">${stories.length === 0 ? '✨' : '🔍'}</div>
+      <h3>${stories.length === 0 ? 'No stories yet' : 'No stories match your filters'}</h3>
+      <p>${stories.length === 0
+        ? 'Click <strong>+ Add Story</strong> to capture your first story.'
+        : 'Try clearing some filters or adjusting your search.'}</p>
+    </div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(renderCard).join('');
+}
+
+function renderCard(s) {
+  const emotionBadge = s.emotion
+    ? `<span class="emotion-badge emotion-${s.emotion}">${s.emotion}</span>` : '';
+  const flairBadge = s.flairStage
+    ? `<span class="flair-badge badge-${s.flairStage}">${cap(s.flairStage)}</span>` : '';
+  const tagChips = (s.tags || []).slice(0, 3)
+    .map(t => `<span class="tag-chip">#${escHtml(t)}</span>`).join('');
+  const lessonHtml = s.lessonLearned
+    ? `<div class="card-lesson">${escHtml(s.lessonLearned)}</div>` : '';
+
+  return `<div class="story-card flair-${s.flairStage || ''}" onclick="openViewModal('${s.id}')">
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-title">${escHtml(s.title)}</div>
+        ${emotionBadge}
+      </div>
+      <div class="card-preview">${escHtml(s.text)}</div>
+      ${lessonHtml}
+      <div class="card-footer">${flairBadge}${tagChips}</div>
+    </div>
+  </div>`;
+}
+
+// ─── View Toggle ──────────────────────────────────────────────────────────────
+function setView(v) {
+  currentView = v;
+  document.getElementById('storyGrid').className = 'story-grid' + (v === 'list' ? ' list-view' : '');
+  document.getElementById('gridBtn').className = 'view-btn' + (v === 'grid' ? ' active' : '');
+  document.getElementById('listBtn').className = 'view-btn' + (v === 'list' ? ' active' : '');
+}
+
+// ─── Modals ───────────────────────────────────────────────────────────────────
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+// Close on backdrop click
+document.querySelectorAll('.modal-overlay').forEach(el => {
+  el.addEventListener('click', e => { if (e.target === el) closeModal(el.id); });
+});
+
+// Close on Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape')
+    ['addEditModal', 'viewModal', 'quickModal'].forEach(closeModal);
+});
+
+// ─── Add / Edit Modal ─────────────────────────────────────────────────────────
+function openAddModal(prefill = {}) {
+  editingId = null;
+  document.getElementById('addEditTitle').textContent = 'Add Story';
+  document.getElementById('fTitle').value   = prefill.title     || '';
+  document.getElementById('fText').value    = prefill.text      || '';
+  document.getElementById('fLesson').value  = '';
+  document.getElementById('fEmotion').value = prefill.emotion   || '';
+  document.getElementById('fFlair').value   = prefill.flairStage || '';
+  document.getElementById('fTopic').value   = prefill.topic     || '';
+  document.getElementById('fTags').value    = '';
+  closeModal('quickModal');
+  openModal('addEditModal');
+  setTimeout(() => document.getElementById('fTitle').focus(), 80);
+}
+
+function openEditModal(id) {
+  const s = stories.find(x => x.id === id);
+  if (!s) return;
+  editingId = id;
+  document.getElementById('addEditTitle').textContent = 'Edit Story';
+  document.getElementById('fTitle').value   = s.title           || '';
+  document.getElementById('fText').value    = s.text            || '';
+  document.getElementById('fLesson').value  = s.lessonLearned   || '';
+  document.getElementById('fEmotion').value = s.emotion         || '';
+  document.getElementById('fFlair').value   = s.flairStage      || '';
+  document.getElementById('fTopic').value   = s.topic           || '';
+  document.getElementById('fTags').value    = (s.tags || []).join(', ');
+  closeModal('viewModal');
+  openModal('addEditModal');
+}
+
+function saveStory() {
+  const title = document.getElementById('fTitle').value.trim();
+  const text  = document.getElementById('fText').value.trim();
+  if (!title || !text) {
+    alert('Please fill in both Title and Story before saving.');
+    return;
+  }
+
+  const tags = document.getElementById('fTags').value
+    .split(',').map(t => t.trim().toLowerCase().replace(/^#+/, '')).filter(Boolean);
+
+  const data = {
+    title,
+    text,
+    lessonLearned: document.getElementById('fLesson').value.trim(),
+    emotion:       document.getElementById('fEmotion').value,
+    flairStage:    document.getElementById('fFlair').value,
+    topic:         document.getElementById('fTopic').value,
+    tags
+  };
+
+  if (editingId) {
+    const idx = stories.findIndex(s => s.id === editingId);
+    if (idx >= 0) stories[idx] = { ...stories[idx], ...data };
+  } else {
+    stories.unshift({
+      id: (typeof crypto !== 'undefined' && crypto.randomUUID)
+        ? crypto.randomUUID()
+        : Date.now().toString(36) + Math.random().toString(36).slice(2),
+      ...data,
+      createdAt: new Date().toISOString()
+    });
+  }
+
+  persist();
+  closeModal('addEditModal');
+  render();
+}
+
+// ─── View Modal ───────────────────────────────────────────────────────────────
+function openViewModal(id) {
+  const s = stories.find(x => x.id === id);
+  if (!s) return;
+  viewingId = id;
+
+  document.getElementById('viewTitle').textContent = s.title;
+
+  const emotionBadge = s.emotion
+    ? `<span class="emotion-badge emotion-${s.emotion}">${cap(s.emotion)}</span>` : '';
+  const flairBadge = s.flairStage
+    ? `<span class="flair-badge badge-${s.flairStage}">${cap(s.flairStage)}</span>` : '';
+  const topicBadge = s.topic
+    ? `<span class="tag-chip" style="background:var(--teal-light);color:var(--teal)">${escHtml(s.topic)}</span>` : '';
+  const tagChips = (s.tags || [])
+    .map(t => `<span class="tag-chip">#${escHtml(t)}</span>`).join('');
+
+  const lessonHtml = s.lessonLearned ? `
+    <div class="view-lesson-box">
+      <div class="lesson-label">Lesson Learned</div>
+      <p>${escHtml(s.lessonLearned)}</p>
+    </div>` : '';
+
+  document.getElementById('viewBody').innerHTML = `
+    <div class="view-badges">${flairBadge}${emotionBadge}${topicBadge}${tagChips}</div>
+    <div class="view-story-text">${escHtml(s.text)}</div>
+    ${lessonHtml}
+    <div class="view-meta">Added ${fmtDate(s.createdAt)}</div>
+  `;
+
+  openModal('viewModal');
+}
+
+function editCurrentStory()   { if (viewingId) openEditModal(viewingId); }
+
+function deleteCurrentStory() {
+  if (!viewingId) return;
+  const s = stories.find(x => x.id === viewingId);
+  if (!s) return;
+  if (!confirm(`Delete "${s.title}"?\n\nThis cannot be undone.`)) return;
+  stories = stories.filter(x => x.id !== viewingId);
+  persist();
+  closeModal('viewModal');
+  render();
+}
+
+// ─── Quick Prompt ─────────────────────────────────────────────────────────────
+function openQuickPrompt() {
+  generatePrompts();
+  openModal('quickModal');
+}
+
+function generatePrompts() {
+  const shuffled = [...PROMPT_TEMPLATES].sort(() => Math.random() - 0.5);
+  currentPrompts = shuffled.slice(0, 5);
+  document.getElementById('promptList').innerHTML = currentPrompts.map((p, i) => `
+    <div class="prompt-card" onclick="usePrompt(${i})">
+      <div class="prompt-meta">
+        <span class="flair-badge badge-${p.stage}">${cap(p.stage)}</span>
+        <span class="tag-chip">${escHtml(p.topic)}</span>
+      </div>
+      <div class="prompt-text">${escHtml(p.text)}</div>
+    </div>`).join('');
+}
+
+function usePrompt(i) {
+  const p = currentPrompts[i];
+  openAddModal({ flairStage: p.stage, topic: p.topic });
+}
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+function cap(str) {
+  return str ? str.charAt(0).toUpperCase() + str.slice(1) : '';
+}
+
+function escHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function escAttr(str) {
+  if (!str) return '';
+  return String(str).replace(/'/g, "\\'");
+}
+
+function fmtDate(iso) {
+  if (!iso) return '';
+  try {
+    return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  } catch { return ''; }
+}
+
+// ─── Boot ─────────────────────────────────────────────────────────────────────
+initApp();
+</script>
+</body>
+</html>
